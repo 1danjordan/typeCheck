@@ -70,7 +70,7 @@ type_define <- function(
 #' type.data.frame <- define_type(is.data.frame)
 #' type.df <- type_alias(data.frame)
 #'
-#' f <- function(x = ? df) x ? data.frame
+#' f <- function(x = ? df) x
 #' ff <- type_check(f)
 #'
 #' ff(data.frame(x = 1:10, y = 10:1))
