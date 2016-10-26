@@ -43,6 +43,52 @@ type_define <- function(
   }
 }
 
+#' Create an alias for a defined type
+#'
+#' @param name Type to alias.
+#' This can be a string, S3 \code{generic.class} or \code{class}. See examples
+#' @return A closure that retrieves the aliased type
+#' @export
+#' @examples
+#' library(types)
+#' type.numeric <- type_define(is.numeric)
+#'
+#' # Can apply name in four ways
+#' type.num <- type_alias(type.numeric)
+#' type.num <- type_alias(numeric)
+#' type.num <- type_alias("type.numeric")
+#' type.num <- type_alias("numeric")
+#'
+#' f <- function(x ? num) x
+#' ff <- type_check(f)
+#' f(5)
+#' \dontrun{
+#' f(TRUE) # Error: `x` is a `logical` not a `numeric`.
+#' f("a") # Error: `x` is a `character` not a `numeric`.
+#' }
+#'
+#' type.data.frame <- define_type(is.data.frame)
+#' type.df <- type_alias(data.frame)
+#'
+#' f <- function(x = ? df) x ? data.frame
+#' ff <- type_check(f)
+#'
+#' ff(data.frame(x = 1:10, y = 10:1))
+#'
+
+type_alias <- function(name) {
+  # Parse type name to extract class
+  name <- ifelse(is.character(name), name, deparse(substitute(name)))
+  str <- unlist(strsplit((name), split = "type.", fixed = TRUE))
+  name <- ifelse(length(str) > 1, str[2], str)
+
+  if(!paste0("type.", name) %in% methods("type")) stop(name, " is not a type - cannot be aliased", call. = FALSE)
+
+  function(...) {
+    type(name)
+  }
+}
+
 #' Retrieve a given type if defined
 #'
 #' The default method signals an error
