@@ -128,7 +128,7 @@ add_check <- function(x, type, name = label(x)) {
     `_value_` <- withVisible(.(x))
     `_type_` <- typeCheck::type(.(type))
     if (!isTRUE(`_type_`$check(`_value_`$value)))
-      stop(`_type_`$error(.(name), `_value_`$value, .(type)), call. = FALSE)
+      stop(`_type_`$error(.(name), `_value_`$value, `_type_`$name), call. = FALSE)
     if (`_value_`$visible) `_value_`$value else invisible(`_value_`$value)
   })
 }
