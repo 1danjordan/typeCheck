@@ -3,6 +3,7 @@
 S3method(print,checked_function)
 S3method(type,default)
 export(type)
+export(type_alias)
 export(type_check)
 export(type_check_package)
 export(type_define)
