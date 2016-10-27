@@ -37,12 +37,10 @@ f("a") # Error: `x` is a `character` not a `numeric`.
 type.data.frame <- define_type(is.data.frame)
 type.df <- type_alias(data.frame)
 
-f <- function(x = ? df){ x } ? data.frame
+f <- function(x = ? df) x
 ff <- type_check(f)
 
 ff(data.frame(x = 1:10, y = 10:1))
-\dontrun{
-ff(1:10) # Error: `x` is a `integer` not a `data.frame`.
-}
+
 }
 
