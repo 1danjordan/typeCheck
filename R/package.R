@@ -78,7 +78,8 @@ type_define <- function(
 
 type_alias <- function(name) {
   # Parse type name to extract class
-  name <- ifelse(is.character(name), name, deparse(substitute(name)))
+  name <- substitute(name)
+  name <- ifelse(is.character(name), name, deparse(name))
   str <- unlist(strsplit((name), split = "type.", fixed = TRUE))
   name <- ifelse(length(str) > 1, str[2], str)
 
