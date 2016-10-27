@@ -86,7 +86,7 @@ type_alias <- function(name) {
   if(!paste0("type.", name) %in% methods("type")) stop(name, " is not a type - cannot be aliased", call. = FALSE)
 
   function(...) {
-    type(name)
+    typeCheck::type(name)
   }
 }
 
