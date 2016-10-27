@@ -1,6 +1,11 @@
 suppressPackageStartupMessages(library(types))
 context("type_alias")
 
+test_that("testthat S3 methods aren't assigning", {
+  type.numeric <- type_define(is.numeric)
+  expect_true("type.numeric" %in% methods(type))
+})
+
 test_that("all type_alias argument styles work", {
   type.numeric <- type_define(is.numeric)
   expect_true("type.numeric" %in% methods(type))
