@@ -17,8 +17,8 @@
 #'   substring(str, 1, len)
 #' })
 #' \dontrun{
-#'  prefix(10, 1), # `str` is a `double` not a `character`
-#'  prefix("foo", NULL), # `len` is a `NULL` not a `integer`
+#'  prefix(10, 1) # `str` is a `double` not a `character`
+#'  prefix("foo", NULL) # `len` is a `NULL` not a `integer`
 #' }
 type_define <- function(
   check = function(x) TRUE,
@@ -42,6 +42,36 @@ type_define <- function(
         machine_type = machine_type))
   }
 }
+
+#' Define a new type concisely
+#'
+#' This is a convenience wrapper around \code{\link{type_define}}.
+#'
+#' @param check_expr An expression to be used as the body of the single-parameter
+#' checking function (\code{\link{type_define}}'s parameter \code{check}). This
+#' "lambda expression" should
+#' \strong{use the dot (\code{.}) to refer to the parameter of the checking function}.
+#' E.g.
+#' \code{type_define_lambda(is.character(.) && length(.)==1)} is the same as
+#' \code{type_define(function(.) is.character(.) && length(.)==1)}.
+#' @param ... Additional optional parameters passed to \code{\link{type_define}}.
+#' @export
+#' @examples
+#' type.string_scalar <- type_define_lambda(is.character(.) && length(.)==1)
+#' type.positive_integer <- type_define_lambda(is.integer(.) && .>0)
+#' prefix <- type_check(function(str = ? string_scalar, len = ? positive_integer) {
+#'   substring(str, 1, len)
+#' })
+#' \dontrun{
+#'  prefix(10, 1) # `str` is a `double` not a `string`
+#'  prefix("foo", NULL) # `len` is a `NULL` not a `positive_integer`
+#' }
+type_define_lambda <-
+  function(check_expr = TRUE, ...) {
+    f <- function(.) TRUE
+    body(f) <- substitute(check_expr)
+    type_define(check = f, ...)
+  }
 
 #' Retrieve a given type if defined
 #'
