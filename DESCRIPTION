@@ -1,6 +1,6 @@
 Package: typeCheck
 Title: Type Checks For Code
-Version: 0.0.0.9000
+Version: 0.0.1.0
 Authors@R: person("Jim", "Hester", email = "james.f.hester@gmail.com", role = c("aut", "cre"))
 Description: Adds type checks to R code annotated with types as specified in the types package.
 Depends:
@@ -17,5 +17,5 @@ Suggests:
     covr
 Remotes:
     jimhester/types
-RoxygenNote: 5.0.1
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr

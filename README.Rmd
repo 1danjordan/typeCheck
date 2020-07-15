@@ -13,11 +13,27 @@ knitr::opts_chunk$set(
 ```
 
 ## Type Check ##
-[![Travis-CI Build Status](https://travis-ci.org/jimhester/typeCheck.svg?branch=master)](https://travis-ci.org/jimhester/typeCheck)
-[![Coverage Status](https://img.shields.io/codecov/c/github/jimhester/typeCheck/master.svg)](https://codecov.io/github/jimhester/typeCheck?branch=master)
 
 Type check allows use of [types](https://github.com/jimhester/types) to
-automatically add checking code when types are annotated.
+automatically add checking code when types are annotated.\
+See also [typed](https://github.com/1danjordan/typed) for a number of
+pre-defined common types to be used with `typeCheck`.
+
+&#9758; **[This fork of typeCheck](https://github.com/alekrutkowski/typeCheck)
+adds one simple convenience wrapper `type_define_lambda` on top of `type_define`:**
+
+```{r eval=FALSE}
+# The two type definitions below are identical:
+
+type.my_string_scalar1 <- 
+  type_define_lambda( is.character(.) && length(.)==1 )
+
+type.my_string_scalar2 <- 
+  type_define( function(.)
+                      is.character(.) && length(.)==1 )
+```
+
+&#9758; **Use the dot (`.`) to refer to the parameter of the checking function.**
 
 ### Defining Types ###
 

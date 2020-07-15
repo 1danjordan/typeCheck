@@ -37,7 +37,6 @@ ff(1)
 \dontrun{
  ff(1:2) # `blah` has length `2`, not `1`
  ff("txt") # `blah` is a `character` not a `numeric`
- ff(2) # `f1\\\\(\\\\)` equals `2`, not `1`
+ ff(2) # `f1\\(\\)` equals `2`, not `1`
 }
 }
-

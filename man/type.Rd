@@ -15,4 +15,3 @@ A type object
 \description{
 The default method signals an error
 }
-

@@ -4,11 +4,15 @@
 \alias{type_define}
 \title{Define a new type}
 \usage{
-type_define(check = function(x) TRUE, error = function(obj_name, obj_value,
-  type) {     sprintf("`\%s` is a `\%s` not a `\%s`.", obj_name, if
-  (is.object(obj_value))          class(obj_value)[[1L]]     else
-  typeof(obj_value), type) }, document = character(),
-  machine_type = character(), ...)
+type_define(
+  check = function(x) TRUE,
+  error = function(obj_name, obj_value, type) {    
+    sprintf("`\%s` is a `\%s` not a `\%s`.", obj_name, if (is.object(obj_value))         
+    class(obj_value)[[1L]]     else typeof(obj_value), type) },
+  document = character(),
+  machine_type = character(),
+  ...
+)
 }
 \arguments{
 \item{check}{A checking function to apply if that type is specified (optional). The
@@ -35,8 +39,7 @@ prefix <- type_check(function(str = ? character, len = ? integer) {
   substring(str, 1, len)
 })
 \dontrun{
- prefix(10, 1), # `str` is a `double` not a `character`
- prefix("foo", NULL), # `len` is a `NULL` not a `integer`
+ prefix(10, 1) # `str` is a `double` not a `character`
+ prefix("foo", NULL) # `len` is a `NULL` not a `integer`
 }
 }
-
